@@ -1,9 +1,10 @@
 import React from "react";
+import ProductsPage from "../../components/ProductsPage";
 
 const WomenMain = () => {
   return (
     <div>
-      <h1>Women main page</h1>
+      <ProductsPage gender={"women"} />
     </div>
   );
 };

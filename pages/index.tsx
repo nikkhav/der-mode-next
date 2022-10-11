@@ -5,9 +5,11 @@ import PhotoCard from "../components/PhotoCard";
 const Home: NextPage = () => {
   return (
     <div>
-      <div className={"flex flex-col mt-5"}>
-        <div className={"flex flex-row justify-center mt-16"}>
-          <h1 className={"text-4xl text-center font-raleway"}>
+      <div className={"flex flex-col"}>
+        <div className={"flex flex-row justify-center mt-12"}>
+          <h1
+            className={"text-4xl text-center font-raleway animate-slide-left"}
+          >
             Выберите раздел для вас
           </h1>
         </div>

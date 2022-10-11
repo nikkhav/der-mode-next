@@ -14,7 +14,7 @@ const FourOhFour = () => {
       <Link href={"/"}>
         <a
           className={
-            "text-2xl mt-10 font-raleway rounded-2xl border-2 border-black py-3 px-5"
+            "text-2xl mt-10 font-raleway rounded-2xl border-2 border-black py-3 mb-20 px-5"
           }
         >
           На главную

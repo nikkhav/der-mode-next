@@ -3,15 +3,21 @@ import { PhotoCardProps } from "../types";
 import Image from "next/image";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
+import { useAppDispatch } from "../store/hooks";
+import { selectGender } from "../store/slices/currentUserSlice";
 
 const PhotoCard: NextPage<PhotoCardProps> = ({ image, title, path }) => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   return (
     <div
       className={
         "w-3/12 shadow-lg rounded-lg shadow-gray-500 mx-7 hover:cursor-pointer hover:shadow-gray-600 transition-shadow duration-300"
       }
-      onClick={() => router.push(`/${path}`)}
+      onClick={() => {
+        dispatch(selectGender(path));
+        router.push(`/${path}`);
+      }}
     >
       <Image
         src={image}
