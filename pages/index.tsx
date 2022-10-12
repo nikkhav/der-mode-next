@@ -14,9 +14,17 @@ const Home: NextPage = () => {
           </h1>
         </div>
         <div className={"flex flex-row justify-center mt-14"}>
-          <PhotoCard image={"/women.jpg"} title={"Женское"} path={"women"} />
-          <PhotoCard image={"/men.jpg"} title={"Мужское"} path={"men"} />
-          <PhotoCard image={"/kids.jpeg"} title={"Детское"} path={"kids"} />
+          <PhotoCard
+            image={"/images/women.jpg"}
+            title={"Женское"}
+            path={"women"}
+          />
+          <PhotoCard image={"/images/men.jpg"} title={"Мужское"} path={"men"} />
+          <PhotoCard
+            image={"/images/kids.jpeg"}
+            title={"Детское"}
+            path={"kids"}
+          />
         </div>
         <div className={"flex flex-col justify-center"}>
           <div className={"flex flex-row justify-center mt-24"}>

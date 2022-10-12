@@ -12,23 +12,25 @@ const PhotoCard: NextPage<PhotoCardProps> = ({ image, title, path }) => {
   return (
     <div
       className={
-        "w-3/12 shadow-lg rounded-lg shadow-gray-500 mx-7 hover:cursor-pointer hover:shadow-gray-600 transition-shadow duration-300"
+        "w-3/12 h-full shadow-lg rounded-md shadow-gray-500 mx-7 hover:cursor-pointer hover:shadow-gray-600 transition-shadow duration-300"
       }
       onClick={() => {
         dispatch(selectGender(path));
         router.push(`/${path}`);
       }}
     >
-      <Image
-        src={image}
-        alt={title}
-        height={"100%"}
-        width={"100%"}
-        layout={"responsive"}
-        className={
-          "rounded-t-lg hover:opacity-70 transition-opacity duration-300"
-        }
-      />
+      <div className={"w-full h-full"}>
+        <Image
+          src={image}
+          alt={title}
+          height={250}
+          width={200}
+          layout={"responsive"}
+          className={
+            "rounded-t-md hover:opacity-60 transition-opacity duration-300"
+          }
+        />
+      </div>
       <h1
         className={
           "text-2xl rounded-b-lg text-center py-5 font-raleway transition ease-in-out duration-300 hover:text-gray-500"

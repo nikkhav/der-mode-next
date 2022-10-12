@@ -4,7 +4,7 @@ import { FaCcMastercard } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className={"flex flex-col bg-black p-10"}>
+    <div className={"flex flex-col bg-black mt-10 p-10"}>
       <div className={"flex flex-row justify-center"}>
         <h3 className={"text-white text-2xl font-raleway"}>
           Скидка 10% за отзыв в Яндекс Картах

@@ -11,6 +11,8 @@ const Navbar = () => {
   const currentGender = useAppSelector(
     (state) => state.currentUser.selectedGender
   );
+
+  // TODO: Сделать анимацию корзины при добавлении товара + когда не пустая
   return (
     <div className={"mt-5"}>
       <div className={"flex flex-row justify-center"}>
@@ -30,7 +32,7 @@ const Navbar = () => {
           <h2
             className={`text-xl ${
               currentGender === "women"
-                ? "border-b-2 border-orange-500 hover:border-gray-700"
+                ? "border-b-2 border-[#00A550] hover:border-lime-700"
                 : "text-gray-500"
             } mx-5 font-raleway transition ease-in-out duration-300 hover:text-gray-600 hover:cursor-pointer`}
             onClick={() => {
@@ -45,7 +47,7 @@ const Navbar = () => {
           <h2
             className={`text-xl ${
               currentGender === "men"
-                ? "border-b-2 border-orange-500 hover:border-gray-700"
+                ? "border-b-2 border-[#00A550] hover:border-lime-700"
                 : "text-gray-500"
             } mx-5 font-raleway transition ease-in-out duration-300 hover:text-gray-800 hover:cursor-pointer`}
             onClick={() => {
@@ -61,7 +63,7 @@ const Navbar = () => {
           <h2
             className={`text-xl ${
               currentGender === "kids"
-                ? "border-b-2 border-orange-500 hover:border-gray-700"
+                ? "border-b-2 border-[#00A550] hover:border-lime-700"
                 : "text-gray-500"
             } mx-5 font-raleway transition ease-in-out duration-300 hover:text-gray-800 hover:cursor-pointer`}
             onClick={() => {
@@ -98,7 +100,7 @@ const Navbar = () => {
         <Link href={"/"}>
           <a
             className={
-              "text-lg text-orange-600 px-5 font-raleway transition ease-in-out duration-300 hover:text-orange-700"
+              "text-lg text-red-700 px-5 font-raleway transition ease-in-out duration-300 hover:text-red-900 animate-pulse"
             }
           >
             Новинки

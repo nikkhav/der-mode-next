@@ -12,6 +12,7 @@ export interface ItemCardProps {
   image: string;
   title: string;
   price: number;
+  brand: string;
 }
 
 export interface CurrentUserSlice {
