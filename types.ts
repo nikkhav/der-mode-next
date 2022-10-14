@@ -6,6 +6,11 @@ export interface PhotoCardProps {
 
 export interface ProductsPageProps {
   gender: string;
+  items: Item[];
+}
+
+export interface ProductsIndexPageProps {
+  items: Item[];
 }
 
 export interface ItemCardProps {
@@ -13,6 +18,11 @@ export interface ItemCardProps {
   title: string;
   price: number;
   brand: string;
+  path: string;
+}
+
+export interface ItemDetailedProps {
+  item: Item;
 }
 
 export interface CurrentUserSlice {
@@ -31,4 +41,5 @@ export interface Item {
   price: number;
   sizes: string[];
   title: string;
+  gender: string;
 }

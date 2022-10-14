@@ -2,8 +2,16 @@ import React from "react";
 import Image from "next/image";
 import { NextPage } from "next";
 import { ItemCardProps } from "../types";
+import { useRouter } from "next/router";
 
-const ItemCard: NextPage<ItemCardProps> = ({ title, price, image, brand }) => {
+const ItemCard: NextPage<ItemCardProps> = ({
+  title,
+  price,
+  image,
+  brand,
+  path,
+}) => {
+  const router = useRouter();
   return (
     <div
       className={
@@ -22,6 +30,7 @@ const ItemCard: NextPage<ItemCardProps> = ({ title, price, image, brand }) => {
           className={
             "rounded-md hover:opacity-80 transition-opacity duration-300"
           }
+          onClick={() => router.push(path)}
         />
       </div>
       <div className={"flex flex-col justify-start w-11/12 p-2"}>
