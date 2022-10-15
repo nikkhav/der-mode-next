@@ -15,23 +15,17 @@ const ProductsMain: NextPage<ProductsPageProps> = ({ items }) => {
     (state) => state.currentUser.selectedGender
   );
   const gender: string = router.query.gender as string;
+  const category: string = router.query.category as string;
   useEffect(() => {
     if (selectedGender !== gender) dispatch(selectGender(gender));
-  }, [selectedGender, gender]);
-
-  let genderRu = "";
-
-  if (gender === "women") genderRu = "Женщинам";
-  if (gender === "men") genderRu = "Мужчинам";
-  if (gender === "kids") genderRu = "Детям";
+  }, [selectedGender, gender, dispatch]);
 
   return (
     <div className={"flex flex-col p-4"}>
-      <h1 className={"text-2xl"}>Главная/{genderRu}</h1>
       {items.length === 0 ? (
-        <div className={"flex flex-col items-center justify-center"}>
-          <h1 className={"text-3xl font-light"}>Нет товаров 😢</h1>
-          <h2 className={"text-xl font-light mt-8"}>
+        <div className={"flex flex-col p-10 items-center justify-center"}>
+          <h1 className={"text-4xl font-light"}>Нет товаров 😢</h1>
+          <h2 className={"text-2xl font-light mt-8"}>
             Попробуйте другую категорию
           </h2>
           <Link href={"/"}>
@@ -50,7 +44,7 @@ const ProductsMain: NextPage<ProductsPageProps> = ({ items }) => {
                 brand={item.brand}
                 image={item.images[0]}
                 key={item._id}
-                path={`/${gender}/${item._id}`}
+                path={`/${gender}/${category}/${item._id}`}
               />
             );
           })}

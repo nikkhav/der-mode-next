@@ -14,13 +14,13 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
   const selectedGender = useAppSelector(
     (state) => state.currentUser.selectedGender
   );
-  const itemName: string = item.title + " " + item.brand;
+  const itemName: string = `${item.title} | ${item.brand}`;
 
   useEffect(() => {
     if (router.query.gender !== selectedGender) {
       dispatch(selectGender(router.query.gender as string));
     }
-  }, [selectedGender]);
+  }, [selectedGender, dispatch, router.query]);
 
   return (
     <>
@@ -50,13 +50,28 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
         </div>
         <div className={"flex flex-col items-center justify-evenly w-4/12"}>
           <div className={"flex flex-col items-center"}>
-            <h2 className={"text-3xl font-intertight"}>{item.title}</h2>
-            <h3 className={"text-2xl mt-3 font-raleway"}>{item.brand}</h3>
-            <h3 className={"text-xl font-raleway mt-5"}>
+            {item.new ? (
+              <h2
+                className={"text-xl text-center text-red-600 font-light mb-4"}
+              >
+                Новинка
+              </h2>
+            ) : (
+              ""
+            )}
+            <h2 className={"text-3xl text-center font-intertight"}>
+              {item.title}
+            </h2>
+            <h3 className={"text-2xl text-center mt-3 font-raleway"}>
+              {item.brand}
+            </h3>
+            <h3 className={"text-xl text-center font-raleway mt-5"}>
               Цена: {item.price} ₽
             </h3>
-            <h3 className={"text-xl font-raleway mt-5"}>Размеры:</h3>
-            <div className={"flex flex-row justify-center mt-5"}>
+            <h3 className={"text-xl text-center font-raleway mt-5"}>
+              Размеры:
+            </h3>
+            <div className={"flex flex-row flex-wrap justify-center mt-5"}>
               {item.sizes.map((size, index) => (
                 <button
                   key={index}
