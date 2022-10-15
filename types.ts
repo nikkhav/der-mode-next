@@ -37,9 +37,10 @@ export interface Item {
   category: string;
   countInStock: number;
   description: string;
-  image: string;
+  images: string[];
   price: number;
   sizes: string[];
   title: string;
   gender: string;
+  new: boolean;
 }

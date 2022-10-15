@@ -1,15 +1,25 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import Item from "../../../mongodb/models/itemModel";
-import connectDB from "../../../mongodb/database";
+import Item from "../../../../mongodb/models/itemModel";
+import connectDB from "../../../../mongodb/database";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const { itemGender } = req.query;
   await connectDB();
   if (req.method === "GET") {
     try {
-      const items = await Item.find({ gender: req.query.itemGender });
+      const items = await Item.find({
+        gender: itemGender,
+        new: true,
+      });
+
+      if (!items || items.length === 0) {
+        return res
+          .status(200)
+          .json({ status: "error", message: "No items found", items: [] });
+      }
       return res.status(200).json({
         status: "success",
         items,

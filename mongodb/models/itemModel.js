@@ -16,8 +16,9 @@ const itemSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  image: {
-    type: String,
+  images: {
+    type: Array,
+    required: true,
   },
   category: {
     type: String,
@@ -33,6 +34,10 @@ const itemSchema = new mongoose.Schema({
   },
   sizes: {
     type: Array,
+    required: true,
+  },
+  new: {
+    type: Boolean,
     required: true,
   },
 });

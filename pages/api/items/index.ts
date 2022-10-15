@@ -10,6 +10,11 @@ export default async function handler(
   if (req.method === "GET") {
     try {
       const items = await Item.find();
+      if (!items || items.length === 0) {
+        return res
+          .status(400)
+          .json({ status: "error", message: "No items found" });
+      }
       return res.status(200).json({
         status: "success",
         items,

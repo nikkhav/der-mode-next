@@ -17,13 +17,17 @@ const Home: NextPage = () => {
           <PhotoCard
             image={"/images/women.jpg"}
             title={"Женское"}
-            path={"women"}
+            path={"women/all"}
           />
-          <PhotoCard image={"/images/men.jpg"} title={"Мужское"} path={"men"} />
+          <PhotoCard
+            image={"/images/men.jpg"}
+            title={"Мужское"}
+            path={"men/all"}
+          />
           <PhotoCard
             image={"/images/kids.jpeg"}
             title={"Детское"}
-            path={"kids"}
+            path={"kids/all"}
           />
         </div>
         <div className={"flex flex-col justify-center"}>

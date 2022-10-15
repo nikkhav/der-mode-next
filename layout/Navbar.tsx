@@ -37,7 +37,7 @@ const Navbar = () => {
             } mx-5 font-raleway transition ease-in-out duration-300 hover:text-gray-600 hover:cursor-pointer`}
             onClick={() => {
               if (router.pathname !== "/") {
-                router.push("/women");
+                router.push("/women/all");
               }
               dispatch(selectGender("women"));
             }}
@@ -52,7 +52,7 @@ const Navbar = () => {
             } mx-5 font-raleway transition ease-in-out duration-300 hover:text-gray-800 hover:cursor-pointer`}
             onClick={() => {
               if (router.pathname !== "/") {
-                router.push("/men");
+                router.push("/men/all");
               }
               dispatch(selectGender("men"));
             }}
@@ -68,7 +68,7 @@ const Navbar = () => {
             } mx-5 font-raleway transition ease-in-out duration-300 hover:text-gray-800 hover:cursor-pointer`}
             onClick={() => {
               if (router.pathname !== "/") {
-                router.push("/kids");
+                router.push("/kids/all");
               }
               dispatch(selectGender("kids"));
             }}
@@ -97,7 +97,7 @@ const Navbar = () => {
           "flex flex-row justify-center border-y-2 bg-gray-200 mt-5 p-2"
         }
       >
-        <Link href={"/"}>
+        <Link href={`/${currentGender}/new`}>
           <a
             className={
               "text-lg text-red-700 px-5 font-raleway transition ease-in-out duration-300 hover:text-red-900 animate-pulse"
@@ -106,7 +106,7 @@ const Navbar = () => {
             Новинки
           </a>
         </Link>
-        <Link href={"/"}>
+        <Link href={`/${currentGender}/clothes`}>
           <a
             className={
               "text-lg px-5 font-raleway transition ease-in-out duration-300 hover:text-gray-600"
@@ -115,7 +115,7 @@ const Navbar = () => {
             Одежда
           </a>
         </Link>
-        <Link href={"/"}>
+        <Link href={`/${currentGender}/shoes`}>
           <a
             className={
               "text-lg px-5 font-raleway transition ease-in-out duration-300 hover:text-gray-600"
@@ -124,22 +124,13 @@ const Navbar = () => {
             Обувь
           </a>
         </Link>
-        <Link href={"/"}>
+        <Link href={`/${currentGender}/accessories`}>
           <a
             className={
               "text-lg px-5 font-raleway transition ease-in-out duration-300 hover:text-gray-600"
             }
           >
             Аксессуары
-          </a>
-        </Link>
-        <Link href={"/"}>
-          <a
-            className={
-              "text-lg px-5 font-raleway transition ease-in-out duration-300 hover:text-gray-600"
-            }
-          >
-            Бренды
           </a>
         </Link>
       </div>
