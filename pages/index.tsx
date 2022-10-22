@@ -45,7 +45,7 @@ const Home: NextPage = () => {
             <SiJordan className={"text-center mx-10"} size={100} />
           </div>
         </div>
-        <div className={"flex flex-row justify-center mt-14 pt-5 px-5"}>
+        <div className={"flex flex-row justify-center mt-14 pt-5 px-5 mb-10"}>
           <div className={"flex flex-col mx-5"}>
             <h3 className={"text-2xl font-raleway mb-4 text-center"}>
               Экспресс-доставка
@@ -80,7 +80,6 @@ const Home: NextPage = () => {
               сайте банковской картой доставка любой службой бесплатна.
             </p>
           </div>
-          <div className={"h-96"} />
         </div>
       </div>
     </div>

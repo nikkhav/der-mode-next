@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { BsCart2 } from "react-icons/bs";
+import { CgProfile } from "react-icons/cg";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectGender } from "../store/slices/currentUserSlice";
@@ -77,17 +78,22 @@ const Navbar = () => {
           </h2>
         </div>
         <div className={"flex flex-row items-center mr-5"}>
-          <Link href={"/"}>
-            <a className={"text-xl text-gray-600 px-7"}>Вход</a>
+          <Link href={"/auth"}>
+            {/*<a className={"text-xl text-gray-600 px-7"}>Вход</a>*/}
+            <a className={"px-5"}>
+              <CgProfile
+                className={"text-2xl transition-colors hover:text-gray-500"}
+              />
+            </a>
           </Link>
-          <BsCart2 className={"text-xl mb-1"} />
+
           <Link href={"/cart"}>
             <a
               className={
                 "text-xl px-3 font-raleway transition ease-in-out duration-300 hover:text-gray-600"
               }
             >
-              Корзина
+              <BsCart2 className={"text-2xl mb-1"} />
             </a>
           </Link>
           <p className={"text-xl px-1 font-light"}>{cartAmount}</p>

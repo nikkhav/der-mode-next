@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CartItem from "../../components/CartItem";
 import { useAppSelector } from "../../store/hooks";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const Cart = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -17,7 +18,7 @@ const Cart = () => {
   const modal = (
     <div
       className={
-        "fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex flex-col items-center justify-center"
+        "fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex flex-col items-center justify-center animate-opacity"
       }
     >
       <div className={"bg-white flex flex-col rounded-xl items-center p-14"}>
@@ -77,83 +78,92 @@ const Cart = () => {
     </div>
   );
   return (
-    <div className={"p-8 mt-4"}>
-      {showModal && modal}
-      {cartItems.length > 0 ? (
-        <>
-          <h1 className={"text-3xl text-center font-raleway"}>
-            Оформление заказа
-          </h1>
-          <h2 className={"text-2xl text-center font-thin my-3 mb-10"}>
-            {cartAmount} товара на сумму {totalSum} ₽
-          </h2>
+    <>
+      <Head>
+        <title>Корзина</title>
+      </Head>
+      <div className={"p-8 mt-4"}>
+        {showModal && modal}
+        {cartItems.length > 0 ? (
+          <>
+            <h1 className={"text-3xl text-center font-raleway"}>
+              Оформление заказа
+            </h1>
+            <h2 className={"text-2xl text-center font-thin my-3 mb-10"}>
+              {cartAmount} товара на сумму {totalSum} ₽
+            </h2>
 
-          {cartItems.map((item) => {
-            return (
-              <CartItem
-                key={item.id}
-                id={item.id}
-                image={item.image}
-                title={item.title}
-                path={`/${item.gender}/${item.category}/${item.id}`}
-                price={item.price}
-                quantity={item.quantity}
-                brand={item.brand}
-                size={item.size}
-              />
-            );
-          })}
-          <div className={"flex flex-col mt-10 justify-center items-center"}>
-            <div className={"flex flex-row justify-between"}>
-              <h1 className={"text-4xl font-raleway mb-6"}>Всё верно?</h1>
+            {cartItems.map((item) => {
+              return (
+                <CartItem
+                  key={item.id}
+                  id={item.id}
+                  image={item.image}
+                  title={item.title}
+                  path={`/${item.gender}/${item.category}/${item.id}`}
+                  price={item.price}
+                  quantity={item.quantity}
+                  brand={item.brand}
+                  size={item.size}
+                />
+              );
+            })}
+            <div className={"flex flex-col mt-10 justify-center items-center"}>
+              <div className={"flex flex-row justify-between"}>
+                <h1 className={"text-4xl font-raleway mb-6"}>Всё верно?</h1>
+              </div>
+              <div
+                className={
+                  "flex flex-row mx-auto w-9/12 justify-between items-center"
+                }
+              >
+                <div className={"flex flex-col my-10"}>
+                  <h1 className={"text-3xl font-raleway mb-4"}>
+                    Итого: {totalSum} ₽
+                  </h1>
+                  <h2 className={"text-2xl font-thin"}>
+                    Стоимость доставки: 500 ₽
+                  </h2>
+                </div>
+                <div className={"flex flex-col items-center"}>
+                  <button
+                    onClick={() =>
+                      userLoggedIn
+                        ? router.push("/cart/checkout")
+                        : setShowModal(true)
+                    }
+                    className={
+                      "border-2 border-black bg-black text-2xl text-white font-raleway px-4 py-1 rounded-lg hover:bg-gray-700 hover:border-gray-700 transition-colors"
+                    }
+                  >
+                    Продолжить
+                  </button>
+                </div>
+              </div>
             </div>
-            <div
+          </>
+        ) : (
+          <div
+            className={"flex flex-col items-center justify-center mt-10 p-4"}
+          >
+            <h1 className={"text-3xl text-center font-raleway"}>
+              Корзина пуста
+            </h1>
+            <h2 className={"text-2xl text-center font-thin my-3"}>
+              Вернитесь в каталог, чтобы добавить товары в корзину
+            </h2>
+            <button
+              onClick={() => router.push("/")}
               className={
-                "flex flex-row mx-auto w-9/12 justify-between items-center"
+                "bg-black text-white text-2xl px-4 py-2 mt-10 mb-24 rounded-xl"
               }
             >
-              <div className={"flex flex-col my-10"}>
-                <h1 className={"text-3xl font-raleway mb-4"}>
-                  Итого: {totalSum} ₽
-                </h1>
-                <h2 className={"text-2xl font-thin"}>
-                  Стоимость доставки: 500 ₽
-                </h2>
-              </div>
-              <div className={"flex flex-col items-center"}>
-                <button
-                  onClick={() =>
-                    userLoggedIn
-                      ? router.push("/cart/checkout")
-                      : setShowModal(true)
-                  }
-                  className={
-                    "border-2 border-black bg-black text-2xl text-white font-raleway px-4 py-1 rounded-lg hover:bg-gray-700 hover:border-gray-700 transition-colors"
-                  }
-                >
-                  Продолжить
-                </button>
-              </div>
-            </div>
+              Вернуться на главную
+            </button>
           </div>
-        </>
-      ) : (
-        <div className={"flex flex-col items-center justify-center p-4"}>
-          <h1 className={"text-3xl text-center font-raleway"}>Корзина пуста</h1>
-          <h2 className={"text-2xl text-center font-thin my-3"}>
-            Вернитесь в каталог, чтобы добавить товары в корзину
-          </h2>
-          <button
-            onClick={() => router.push("/")}
-            className={
-              "bg-black text-white text-2xl px-4 py-2 mt-10 rounded-xl"
-            }
-          >
-            Вернуться на главную
-          </button>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 };
 
