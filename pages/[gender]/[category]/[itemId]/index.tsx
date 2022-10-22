@@ -29,7 +29,8 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
     if (router.query.gender !== selectedGender) {
       dispatch(selectGender(router.query.gender as string));
     }
-  }, [selectedGender, dispatch, router.query]);
+    if (item.sizes.length === 1) setSelectedSize(item.sizes[0]);
+  }, [selectedGender, dispatch, router.query, item.sizes]);
 
   const handleAddToCart = (item: Item) => (event: any) => {
     event.preventDefault();

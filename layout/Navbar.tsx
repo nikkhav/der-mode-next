@@ -13,7 +13,6 @@ const Navbar = () => {
   );
   const cartAmount = useAppSelector((state) => state.cart.amount);
 
-  // TODO: Сделать анимацию корзины при добавлении товара + когда не пустая
   return (
     <div className={"mt-5"}>
       <div className={"flex flex-row justify-center"}>

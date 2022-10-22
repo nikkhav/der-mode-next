@@ -4,7 +4,10 @@ import { NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "../store/hooks";
-import { reduceFromCartQuantity } from "../store/slices/cartSlice";
+import {
+  reduceFromCartQuantity,
+  removeFromCart,
+} from "../store/slices/cartSlice";
 
 const CartItem: NextPage<CartItemProps> = ({
   id,
@@ -18,6 +21,16 @@ const CartItem: NextPage<CartItemProps> = ({
 }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+
+  const handleReduceQuantity = (id: string) => (event: any) => {
+    event.preventDefault();
+    dispatch(reduceFromCartQuantity(id));
+  };
+
+  const handleRemoveFromCart = (id: string) => (event: any) => {
+    event.preventDefault();
+    dispatch(removeFromCart(id));
+  };
   return (
     <div
       className={
@@ -51,7 +64,9 @@ const CartItem: NextPage<CartItemProps> = ({
       </div>
       <div className={"flex w-3/12 items-center justify-center"}>
         <button
-          onClick={() => dispatch(reduceFromCartQuantity(id))}
+          onClick={
+            quantity > 1 ? handleReduceQuantity(id) : handleRemoveFromCart(id)
+          }
           className={
             "border-2 border-gray-200 text-lg px-4 py-2 rounded-xl hover:bg-red-700 hover:text-white hover:border-0 transition-colors"
           }

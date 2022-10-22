@@ -22,7 +22,6 @@ export const cartSlice = createSlice({
         state.amount++;
       }
     },
-    // TODO: Починить чтобы товар убирался из корзины если его количество становится 0
     reduceFromCartQuantity: (state, action: PayloadAction<string>) => {
       const item = state.items.find((item) => item.id === action.payload);
       if (item) {
@@ -30,11 +29,24 @@ export const cartSlice = createSlice({
         state.amount--;
       }
     },
+    removeFromCart: (state, action: PayloadAction<string>) => {
+      const itemIndex = state.items.findIndex(
+        (item) => item.id === action.payload
+      );
+      if (itemIndex !== -1) {
+        state.items.splice(itemIndex, 1);
+        state.amount--;
+      }
+    },
   },
 });
 
-export const { addToCart, addToCartQuantity, reduceFromCartQuantity } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  addToCartQuantity,
+  reduceFromCartQuantity,
+  removeFromCart,
+} = cartSlice.actions;
 
 export const selectCart = (state: RootState) => state.cart;
 
