@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
-import { CurrentUserSlice } from "../../types";
+import { CurrentUserInitialState } from "../../types";
 
-const initialState: CurrentUserSlice = {
+const initialState: CurrentUserInitialState = {
   id: "",
   selectedGender: "women",
   isLogged: false,

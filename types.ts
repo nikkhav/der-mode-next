@@ -21,14 +21,42 @@ export interface ItemCardProps {
   path: string;
 }
 
+export interface CartItemProps {
+  image: string;
+  title: string;
+  price: number;
+  brand: string;
+  path: string;
+  quantity: number;
+  id: string;
+  size: string;
+}
+
 export interface ItemDetailedProps {
   item: Item;
 }
 
-export interface CurrentUserSlice {
+export interface CurrentUserInitialState {
   id: string;
   selectedGender: string;
   isLogged: boolean;
+}
+
+export interface CartInitialState {
+  items: ICartItem[];
+  amount: number;
+}
+
+export interface ICartItem {
+  id: string;
+  image: string;
+  title: string;
+  price: number;
+  brand: string;
+  size: string;
+  quantity: number;
+  gender: string;
+  category: string;
 }
 
 export interface Item {

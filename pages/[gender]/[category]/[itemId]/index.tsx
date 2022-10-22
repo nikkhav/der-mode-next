@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
@@ -6,14 +6,23 @@ import axios from "axios";
 import { Item, ItemDetailedProps } from "../../../../types";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { selectGender } from "../../../../store/slices/currentUserSlice";
+import {
+  addToCart,
+  addToCartQuantity,
+} from "../../../../store/slices/cartSlice";
 import Head from "next/head";
 
 const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
+  const [selectedSize, setSelectedSize] = useState<string>("");
+  const [cartButtonClasses, setCartButtonClasses] = useState<string>(
+    "px-4 py-2 text-xl text-white rounded-md bg-black hover:bg-gray-700 transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+  );
   const router = useRouter();
   const dispatch = useAppDispatch();
   const selectedGender = useAppSelector(
     (state) => state.currentUser.selectedGender
   );
+  const cartItems = useAppSelector((state) => state.cart.items);
   const itemName: string = `${item.title} | ${item.brand}`;
 
   useEffect(() => {
@@ -21,6 +30,44 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
       dispatch(selectGender(router.query.gender as string));
     }
   }, [selectedGender, dispatch, router.query]);
+
+  const handleAddToCart = (item: Item) => (event: any) => {
+    event.preventDefault();
+    const itemInCart = cartItems.find((cartItem) => cartItem.id === item._id);
+    if (itemInCart && itemInCart.size === selectedSize) {
+      dispatch(addToCartQuantity(item._id));
+      setCartButtonClasses(
+        "px-4 py-2 text-xl text-white rounded-md bg-black hover:bg-gray-700 transition duration-300 ease-in-out animate-ping"
+      );
+      setTimeout(() => {
+        setCartButtonClasses(
+          "px-4 py-2 text-xl text-white rounded-md bg-black hover:bg-gray-700 transition duration-300 ease-in-out"
+        );
+      }, 1000);
+    } else {
+      dispatch(
+        addToCart({
+          id: item._id,
+          image: item.images[0],
+          title: item.title,
+          price: item.price,
+          quantity: 1,
+          brand: item.brand,
+          size: selectedSize,
+          gender: item.gender,
+          category: item.category,
+        })
+      );
+      setCartButtonClasses(
+        "px-4 py-2 text-xl text-white rounded-md bg-black hover:bg-gray-700 transition duration-300 ease-in-out animate-ping"
+      );
+      setTimeout(() => {
+        setCartButtonClasses(
+          "px-4 py-2 text-xl text-white rounded-md bg-black hover:bg-gray-700 transition duration-300 ease-in-out"
+        );
+      }, 1000);
+    }
+  };
 
   return (
     <>
@@ -75,7 +122,10 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
               {item.sizes.map((size, index) => (
                 <button
                   key={index}
-                  className={"px-4 py-2 rounded-md bg-gray-100 mx-2"}
+                  className={`px-4 py-2 rounded-md mx-2 ${
+                    size === selectedSize ? "bg-gray-200" : ""
+                  }`}
+                  onClick={() => setSelectedSize(size)}
                 >
                   {size.toUpperCase()}
                 </button>
@@ -83,7 +133,9 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
             </div>
           </div>
           <button
-            className={"px-4 py-2 text-xl text-white rounded-md bg-black"}
+            onClick={handleAddToCart(item)}
+            className={cartButtonClasses}
+            disabled={selectedSize === ""}
           >
             Добавить в корзину
           </button>

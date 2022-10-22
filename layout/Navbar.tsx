@@ -11,6 +11,7 @@ const Navbar = () => {
   const currentGender = useAppSelector(
     (state) => state.currentUser.selectedGender
   );
+  const cartAmount = useAppSelector((state) => state.cart.amount);
 
   // TODO: Сделать анимацию корзины при добавлении товара + когда не пустая
   return (
@@ -81,7 +82,7 @@ const Navbar = () => {
             <a className={"text-xl text-gray-600 px-7"}>Вход</a>
           </Link>
           <BsCart2 className={"text-xl mb-1"} />
-          <Link href={"/"}>
+          <Link href={"/cart"}>
             <a
               className={
                 "text-xl px-3 font-raleway transition ease-in-out duration-300 hover:text-gray-600"
@@ -90,6 +91,7 @@ const Navbar = () => {
               Корзина
             </a>
           </Link>
+          <p className={"text-xl px-1 font-light"}>{cartAmount}</p>
         </div>
       </div>
       <div
