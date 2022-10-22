@@ -147,7 +147,7 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch("http://localhost:3000/api/items");
+  const res = await fetch(`${process.env.HOST}/api/items`);
   const data = await res.json();
 
   const categories = ["all", "new", "clothes", "shoes", "accessories"];

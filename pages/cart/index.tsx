@@ -2,11 +2,18 @@ import React, { useState } from "react";
 import CartItem from "../../components/CartItem";
 import { useAppSelector } from "../../store/hooks";
 import { useRouter } from "next/router";
+import { registerForm } from "../../types";
 import Head from "next/head";
+import axios from "axios";
 
 const Cart = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [modalLoginSelected, setModalLoginSelected] = useState<boolean>(true);
+  const [modalForm, setModalForm] = useState<registerForm>({
+    email: "",
+    password: "",
+    name: "",
+  });
   const userLoggedIn = useAppSelector((state) => state.currentUser.isLogged);
   const cartItems = useAppSelector((state) => state.cart.items);
   const cartAmount = useAppSelector((state) => state.cart.amount);
@@ -15,6 +22,31 @@ const Cart = () => {
   }, 0);
   const router = useRouter();
 
+  const handleModalLogin = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    modalLoginSelected
+      ? axios
+          .post("/api/login", {
+            email: modalForm.email,
+            password: modalForm.password,
+          })
+          .then((res) => {
+            console.log(res.data);
+          })
+      : axios
+          .post("/api/register", {
+            email: modalForm.email,
+            password: modalForm.password,
+            name: modalForm.name,
+          })
+          .then((res) => {
+            console.log(res.data);
+          });
+    setShowModal(false);
+    //router.push("/cart/checkout")}
+  };
+  //TODO: перекидывать на страницу оплаты
+  // TODO: Добавить валидацию формы
   const modal = (
     <div
       className={
@@ -47,14 +79,43 @@ const Cart = () => {
           </h3>
         </div>
         <div className={"flex flex-col w-8/12 mt-10"}>
-          <h3 className={"font-raleway text-2xl"}>Email</h3>
+          {modalLoginSelected ? (
+            ""
+          ) : (
+            <>
+              <label className={"font-raleway text-2xl"} htmlFor={"username"}>
+                Имя
+              </label>
+              <input
+                onChange={(e) => {
+                  setModalForm({ ...modalForm, name: e.target.value });
+                }}
+                type={"text"}
+                id={"username"}
+                className={
+                  "border-2 border-black rounded-md w-full h-10 mt-2 p-2 focus:outline-none"
+                }
+              />
+            </>
+          )}
+          <label className={"font-raleway text-2xl mt-5"}>Email</label>
           <input
-            className={"border-2 border-black rounded-md w-full h-10 mt-2 p-2"}
+            onChange={(e) => {
+              setModalForm({ ...modalForm, email: e.target.value });
+            }}
+            className={
+              "border-2 border-black rounded-md w-full h-10 mt-2 p-2 focus:outline-none"
+            }
             type={"text"}
           />
-          <h3 className={"font-raleway text-2xl mt-5"}>Пароль</h3>
+          <label className={"font-raleway text-2xl mt-5"}>Пароль</label>
           <input
-            className={"border-2 border-black rounded-md w-full h-10 mt-2 p-2"}
+            onChange={(e) => {
+              setModalForm({ ...modalForm, password: e.target.value });
+            }}
+            className={
+              "border-2 border-black rounded-md w-full h-10 mt-2 p-2 focus:outline-none"
+            }
             type={"password"}
           />
         </div>
@@ -66,7 +127,11 @@ const Cart = () => {
             Отмена
           </button>
           <button
-            onClick={() => router.push("/cart/checkout")}
+            onClick={
+              handleModalLogin
+              //   setShowModal(false);
+              // router.push("/cart/checkout")}
+            }
             className={
               "bg-black text-white font-raleway text-2xl w-1/2 h-10 rounded-md ml-5"
             }
