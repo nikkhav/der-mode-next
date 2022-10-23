@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { loginForm, registerForm } from "../../types";
 import axios from "axios";
 import Head from "next/head";
+import { useAppDispatch } from "../../store/hooks";
+import { logIn } from "../../store/slices/currentUserSlice";
+import { useRouter } from "next/router";
 
 // TODO: Очистка формы после отправки
 // TODO: Изменить стэйт loggedin в store
@@ -18,8 +21,11 @@ const Auth = () => {
     password: "",
     name: "",
   });
+  const [error, setError] = useState<string>("");
   const [loginFormValid, setLoginFormValid] = useState<boolean>(false);
   const [registerFormValid, setRegisterFormValid] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const validateLoginForm = () => {
     if (loginForm.email.length > 5 && loginForm.password.length > 5) {
@@ -41,29 +47,54 @@ const Auth = () => {
     }
   };
 
-  const handleLogin = (e: React.FormEvent<HTMLButtonElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    axios
-      .post("/api/login", {
+    try {
+      const res = await axios.post("/api/login", {
         email: loginForm.email,
         password: loginForm.password,
-      })
-      .then((res) => {
-        console.log(res.data);
       });
+      const data = await res.data;
+      if (res.status === 200) {
+        const { id } = data.userData;
+        dispatch(logIn(id));
+        setError("");
+        setLoginForm({ email: "", password: "" });
+        alert("Вы успешно вошли!");
+        router.push("/");
+      }
+
+      if (res.status === 201 || res.status === 202) {
+        setError(data.message);
+        console.log(data.message);
+      }
+    } catch (err) {}
   };
 
-  const handleRegister = (e: React.FormEvent<HTMLButtonElement>) => {
+  const handleRegister = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    axios
-      .post("/api/register", {
+    try {
+      const res = await axios.post("/api/register", {
         email: registerForm.email,
         password: registerForm.password,
         name: registerForm.name,
-      })
-      .then((res) => {
-        console.log(res.data);
       });
+      const data = await res.data;
+      if (res.status === 200) {
+        const { id } = data.userData;
+        dispatch(logIn(id));
+        setError("");
+        setRegisterForm({ email: "", password: "", name: "" });
+        alert("Вы успешно зарегистрировались!");
+        router.push("/");
+      }
+      if (res.status === 201 || res.status === 202 || res.status === 203) {
+        setError(data.message);
+        console.log(data.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -77,7 +108,10 @@ const Auth = () => {
         }
       >
         <button
-          onClick={() => setLogin(true)}
+          onClick={() => {
+            setError("");
+            setLogin(true);
+          }}
           className={`text-3xl font-raleway ${
             login ? "border-b-2 border-b-black" : ""
           }`}
@@ -85,7 +119,10 @@ const Auth = () => {
           Вход
         </button>
         <button
-          onClick={() => setLogin(false)}
+          onClick={() => {
+            setError("");
+            setLogin(false);
+          }}
           className={`text-3xl font-raleway ${
             login ? "" : "border-b-2 border-b-black"
           }`}
@@ -126,6 +163,11 @@ const Auth = () => {
               }}
               placeholder={"Введите пароль"}
             />
+            {error && (
+              <p className={"text-red-500 font-raleway text-center mt-5"}>
+                {error}
+              </p>
+            )}
             <button
               disabled={!loginFormValid}
               className={`bg-black text-white text-lg rounded p-2 mt-10 mb-4 transition-colors hover:bg-gray-800 ${
@@ -186,6 +228,11 @@ const Auth = () => {
               }}
               placeholder={"Введите пароль"}
             />
+            {error && (
+              <p className={"text-red-500 font-raleway text-center mt-5"}>
+                {error}
+              </p>
+            )}
             <button
               className={`bg-black text-white text-lg rounded p-2 mt-10 mb-4 transition-colors hover:bg-gray-800 ${
                 registerFormValid ? "" : "opacity-50 cursor-not-allowed"

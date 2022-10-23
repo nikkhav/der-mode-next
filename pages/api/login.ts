@@ -15,7 +15,7 @@ export default async function handler(
       // Find the user in the database
       const user = await User.findOne({ email });
       if (!user) {
-        return res.status(200).json({
+        return res.status(202).json({
           status: "error",
           message: `User with email - ${email} does not exist`,
         });
@@ -24,7 +24,7 @@ export default async function handler(
       // Check if the password is correct
       const validPassword = bcrypt.compareSync(password, user.password);
       if (!validPassword) {
-        return res.status(200).json({
+        return res.status(201).json({
           status: "error",
           message: "Invalid password",
         });
@@ -37,6 +37,7 @@ export default async function handler(
         userData: {
           name: user.name,
           email: user.email,
+          id: user._id,
         },
       });
     } catch (error) {

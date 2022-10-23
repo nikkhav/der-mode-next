@@ -15,10 +15,14 @@ export const currentUserSlice = createSlice({
     selectGender: (state, action: PayloadAction<string>) => {
       state.selectedGender = action.payload;
     },
+    logIn: (state, action: PayloadAction<string>) => {
+      state.id = action.payload;
+      state.isLogged = true;
+    },
   },
 });
 
-export const { selectGender } = currentUserSlice.actions;
+export const { selectGender, logIn } = currentUserSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.currentUser;
 

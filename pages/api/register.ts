@@ -13,9 +13,23 @@ export default async function handler(
       const { name, email, password } = req.body;
       const candidate = await User.findOne({ email });
       if (candidate) {
-        return res.status(200).json({
+        return res.status(201).json({
           status: "error",
           message: "This user already exists",
+        });
+      }
+
+      if (password.length < 6) {
+        return res.status(202).json({
+          status: "error",
+          message: "Password must be at least 6 characters",
+        });
+      }
+
+      if (!name || !email || !password) {
+        return res.status(203).json({
+          status: "error",
+          message: "All fields are required",
         });
       }
       // If the user does not exist, create a new user
@@ -36,6 +50,7 @@ export default async function handler(
           name: newUser.name,
           email: newUser.email,
           password: newUser.password,
+          id: newUser._id,
         },
       });
     } catch (error) {

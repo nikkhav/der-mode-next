@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import CartItem from "../../components/CartItem";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useRouter } from "next/router";
 import { registerForm } from "../../types";
 import Head from "next/head";
 import axios from "axios";
+import { logIn } from "../../store/slices/currentUserSlice";
 
 const Cart = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [modalLoginSelected, setModalLoginSelected] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
   const [modalForm, setModalForm] = useState<registerForm>({
     email: "",
     password: "",
@@ -21,31 +23,64 @@ const Cart = () => {
     return acc + item.price * item.quantity;
   }, 0);
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
-  const handleModalLogin = (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    modalLoginSelected
-      ? axios
-          .post("/api/login", {
-            email: modalForm.email,
-            password: modalForm.password,
-          })
-          .then((res) => {
-            console.log(res.data);
-          })
-      : axios
-          .post("/api/register", {
-            email: modalForm.email,
-            password: modalForm.password,
-            name: modalForm.name,
-          })
-          .then((res) => {
-            console.log(res.data);
-          });
-    setShowModal(false);
-    //router.push("/cart/checkout")}
+  const success = (data: any) => {
+    const { id } = data.userData;
+    dispatch(logIn(id));
+    setError("");
+    setModalForm({
+      email: "",
+      password: "",
+      name: "",
+    });
+    router.push("/cart/checkout");
   };
-  //TODO: перекидывать на страницу оплаты
+
+  const login = async () => {
+    try {
+      const res = await axios.post("/api/login", {
+        email: modalForm.email,
+        password: modalForm.password,
+      });
+      const data = await res.data;
+      if (res.status === 200) {
+        success(data);
+      }
+
+      if (res.status === 201 || res.status === 202) {
+        setError(data.message);
+        console.log(data.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const register = async () => {
+    try {
+      const res = await axios.post("/api/register", {
+        email: modalForm.email,
+        password: modalForm.password,
+        name: modalForm.name,
+      });
+      const data = await res.data;
+      if (res.status === 200) {
+        success(data);
+      }
+      if (res.status === 201 || res.status === 202 || res.status === 203) {
+        setError(data.message);
+        console.log(data.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleModalLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    modalLoginSelected ? login() : register();
+  };
   // TODO: Добавить валидацию формы
   const modal = (
     <div
@@ -119,6 +154,11 @@ const Cart = () => {
             type={"password"}
           />
         </div>
+        {error ? (
+          <p className={"text-red-500 font-raleway text-2xl mt-5"}>{error}</p>
+        ) : (
+          ""
+        )}
         <div className={"flex flex-row w-8/12 mt-10"}>
           <button
             onClick={() => setShowModal(false)}
