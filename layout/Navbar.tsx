@@ -12,8 +12,8 @@ const Navbar = () => {
   const currentGender = useAppSelector(
     (state) => state.currentUser.selectedGender
   );
+  const currentUser = useAppSelector((state) => state.currentUser);
   const cartAmount = useAppSelector((state) => state.cart.amount);
-  // TODO: При нажатии на профиль перекидывать в аккаунт если пользователь залогинен, иначе в логин
   return (
     <div className={"mt-5"}>
       <div className={"flex flex-row justify-center"}>
@@ -78,7 +78,9 @@ const Navbar = () => {
           </h2>
         </div>
         <div className={"flex flex-row items-center mr-5"}>
-          <Link href={"/auth"}>
+          <Link
+            href={currentUser.isLogged ? `/account/${currentUser.id}` : "/auth"}
+          >
             <a className={"px-5"}>
               <CgProfile
                 className={"text-2xl transition-colors hover:text-gray-500"}

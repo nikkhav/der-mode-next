@@ -6,9 +6,6 @@ import { useAppDispatch } from "../../store/hooks";
 import { logIn } from "../../store/slices/currentUserSlice";
 import { useRouter } from "next/router";
 
-// TODO: Очистка формы после отправки
-// TODO: Изменить стэйт loggedin в store
-
 const Auth = () => {
   const [login, setLogin] = useState<boolean>(true);
   let title: string = login ? "Вход" : "Регистрация";
@@ -60,8 +57,7 @@ const Auth = () => {
         dispatch(logIn(id));
         setError("");
         setLoginForm({ email: "", password: "" });
-        alert("Вы успешно вошли!");
-        router.push("/");
+        router.push(`/account/${id}`);
       }
 
       if (res.status === 201 || res.status === 202) {
@@ -86,7 +82,7 @@ const Auth = () => {
         setError("");
         setRegisterForm({ email: "", password: "", name: "" });
         alert("Вы успешно зарегистрировались!");
-        router.push("/");
+        router.push(`/account/${id}`);
       }
       if (res.status === 201 || res.status === 202 || res.status === 203) {
         setError(data.message);
@@ -174,6 +170,7 @@ const Auth = () => {
                 loginFormValid ? "" : "opacity-50 cursor-not-allowed"
               }`}
               onClick={handleLogin}
+              type={"submit"}
             >
               Войти
             </button>
@@ -239,6 +236,7 @@ const Auth = () => {
               }`}
               disabled={!registerFormValid}
               onClick={handleRegister}
+              type={"submit"}
             >
               Зарегистрироваться
             </button>

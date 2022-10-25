@@ -17,7 +17,7 @@ export default async function handler(
       if (!user) {
         return res.status(202).json({
           status: "error",
-          message: `User with email - ${email} does not exist`,
+          message: `Пользователь с имейлом - ${email} не найден`,
         });
       }
 
@@ -26,7 +26,7 @@ export default async function handler(
       if (!validPassword) {
         return res.status(201).json({
           status: "error",
-          message: "Invalid password",
+          message: "Неверный пароль",
         });
       }
 

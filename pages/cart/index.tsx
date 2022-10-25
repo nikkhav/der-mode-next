@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import CartItem from "../../components/CartItem";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useRouter } from "next/router";
@@ -16,6 +16,7 @@ const Cart = () => {
     password: "",
     name: "",
   });
+  const [modalFormValid, setModalFormValid] = useState<boolean>(false);
   const userLoggedIn = useAppSelector((state) => state.currentUser.isLogged);
   const cartItems = useAppSelector((state) => state.cart.items);
   const cartAmount = useAppSelector((state) => state.cart.amount);
@@ -24,6 +25,14 @@ const Cart = () => {
   }, 0);
   const router = useRouter();
   const dispatch = useAppDispatch();
+
+  const validateModalForm = useCallback(() => {
+    if (modalForm.email.length > 5 && modalForm.password.length > 6) {
+      setModalFormValid(true);
+    } else {
+      setModalFormValid(false);
+    }
+  }, [modalForm]);
 
   const success = (data: any) => {
     const { id } = data.userData;
@@ -50,7 +59,6 @@ const Cart = () => {
 
       if (res.status === 201 || res.status === 202) {
         setError(data.message);
-        console.log(data.message);
       }
     } catch (err) {
       console.log(err);
@@ -81,7 +89,7 @@ const Cart = () => {
     e.preventDefault();
     modalLoginSelected ? login() : register();
   };
-  // TODO: Добавить валидацию формы
+
   const modal = (
     <div
       className={
@@ -97,7 +105,16 @@ const Cart = () => {
         </h2>
         <div className={"flex flex-row justify-between w-8/12 mt-10"}>
           <h3
-            onClick={() => setModalLoginSelected(true)}
+            onClick={() => {
+              setModalLoginSelected(true);
+              setModalForm({
+                email: "",
+                password: "",
+                name: "",
+              });
+              validateModalForm();
+              setError("");
+            }}
             className={`font-raleway text-2xl hover:cursor-pointer ${
               modalLoginSelected ? "border-b-2 border-b-black" : ""
             }`}
@@ -105,7 +122,16 @@ const Cart = () => {
             Войти
           </h3>
           <h3
-            onClick={() => setModalLoginSelected(false)}
+            onClick={() => {
+              setModalLoginSelected(false);
+              setModalForm({
+                email: "",
+                password: "",
+                name: "",
+              });
+              validateModalForm();
+              setError("");
+            }}
             className={`font-raleway text-2xl hover:cursor-pointer ${
               modalLoginSelected ? "" : "border-b-2 border-b-black"
             }`}
@@ -123,10 +149,12 @@ const Cart = () => {
               </label>
               <input
                 onChange={(e) => {
+                  //validateModalForm();
                   setModalForm({ ...modalForm, name: e.target.value });
                 }}
                 type={"text"}
                 id={"username"}
+                value={modalForm.name}
                 className={
                   "border-2 border-black rounded-md w-full h-10 mt-2 p-2 focus:outline-none"
                 }
@@ -136,18 +164,22 @@ const Cart = () => {
           <label className={"font-raleway text-2xl mt-5"}>Email</label>
           <input
             onChange={(e) => {
+              //validateModalForm();
               setModalForm({ ...modalForm, email: e.target.value });
             }}
+            value={modalForm.email}
             className={
               "border-2 border-black rounded-md w-full h-10 mt-2 p-2 focus:outline-none"
             }
-            type={"text"}
+            type={"email"}
           />
           <label className={"font-raleway text-2xl mt-5"}>Пароль</label>
           <input
             onChange={(e) => {
+              //validateModalForm();
               setModalForm({ ...modalForm, password: e.target.value });
             }}
+            value={modalForm.password}
             className={
               "border-2 border-black rounded-md w-full h-10 mt-2 p-2 focus:outline-none"
             }
@@ -172,9 +204,12 @@ const Cart = () => {
               //   setShowModal(false);
               // router.push("/cart/checkout")}
             }
-            className={
-              "bg-black text-white font-raleway text-2xl w-1/2 h-10 rounded-md ml-5"
-            }
+            disabled={!modalFormValid}
+            className={`bg-black text-white font-raleway text-2xl w-1/2 h-10 rounded-md ml-5 ${
+              modalFormValid
+                ? "hover:bg-gray-800"
+                : "opacity-50 cursor-not-allowed"
+            }`}
           >
             Продолжить
           </button>
@@ -182,6 +217,10 @@ const Cart = () => {
       </div>
     </div>
   );
+
+  useEffect(() => {
+    validateModalForm();
+  }, [modalForm, validateModalForm]);
   return (
     <>
       <Head>
