@@ -13,7 +13,7 @@ const Home: NextPage = () => {
             Выберите раздел для вас
           </h1>
         </div>
-        <div className={"flex flex-row justify-center mt-14"}>
+        <div className={"flex sm:flex-row flex-col justify-center mt-14"}>
           <PhotoCard
             image={"/images/women.jpg"}
             title={"Женское"}
@@ -45,7 +45,11 @@ const Home: NextPage = () => {
             <SiJordan className={"text-center mx-10"} size={100} />
           </div>
         </div>
-        <div className={"flex flex-row justify-center mt-14 pt-5 px-5 mb-10"}>
+        <div
+          className={
+            "flex sm:flex-row flex-col justify-center mt-14 pt-5 px-5 mb-10"
+          }
+        >
           <div className={"flex flex-col mx-5"}>
             <h3 className={"text-2xl font-raleway mb-4 text-center"}>
               Экспресс-доставка
@@ -57,7 +61,7 @@ const Home: NextPage = () => {
               банковской картой доставка любой службой бесплатна
             </p>
           </div>
-          <div className={"flex flex-col mx-5"}>
+          <div className={"flex flex-col mx-5 sm:mt-0 mt-8"}>
             <h3 className={"text-2xl font-raleway mb-4 text-center"}>
               Примерка одежды перед покупкой
             </h3>
@@ -69,7 +73,7 @@ const Home: NextPage = () => {
               следующего заказа.
             </p>
           </div>
-          <div className={"flex flex-col mx-5"}>
+          <div className={"flex flex-col mx-5 sm:mt-0 mt-8"}>
             <h3 className={"text-2xl text-center font-raleway mb-4"}>
               Удобные способы оплаты
             </h3>

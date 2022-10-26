@@ -27,7 +27,9 @@ const Navbar = () => {
         </h1>
       </div>
       <div
-        className={"flex flex-row mx-12 mt-3.5 justify-between items-center"}
+        className={
+          "flex sm:flex-row flex-col mx-12 mt-3.5 justify-between items-center"
+        }
       >
         <div className={"flex flex-row"}>
           <h2
@@ -77,7 +79,11 @@ const Navbar = () => {
             Детям
           </h2>
         </div>
-        <div className={"flex flex-row items-center mr-5"}>
+        <div
+          className={
+            "flex flex-row items-center justify-center sm:justify-start sm:w-auto w-full sm:mt-0 mt-5 sm:mr-5"
+          }
+        >
           <Link
             href={currentUser.isLogged ? `/account/${currentUser.id}` : "/auth"}
           >
@@ -87,28 +93,29 @@ const Navbar = () => {
               />
             </a>
           </Link>
-
-          <Link href={"/cart"}>
-            <a
-              className={
-                "text-xl px-3 font-raleway transition ease-in-out duration-300 hover:text-gray-600"
-              }
-            >
-              <BsCart2 className={"text-2xl mb-1"} />
-            </a>
-          </Link>
-          <p className={"text-xl px-1 font-light"}>{cartAmount}</p>
+          <div className={"flex flex-row"}>
+            <Link href={"/cart"}>
+              <a
+                className={
+                  "text-xl px-3 font-raleway transition ease-in-out duration-300 hover:text-gray-600"
+                }
+              >
+                <BsCart2 className={"text-2xl mb-1"} />
+              </a>
+            </Link>
+            <p className={"text-xl px-1 font-light"}>{cartAmount}</p>
+          </div>
         </div>
       </div>
       <div
         className={
-          "flex flex-row justify-center border-y-2 bg-gray-200 mt-5 p-2"
+          "flex flex-row justify-center border-y-2 bg-gray-200 w-full mt-5 p-2"
         }
       >
         <Link href={`/${currentGender}/new`}>
           <a
             className={
-              "text-lg text-red-700 px-5 font-raleway transition ease-in-out duration-300 hover:text-red-900 animate-pulse"
+              "text-lg text-red-700 sm:px-5 px-3 font-raleway transition ease-in-out duration-300 hover:text-red-900 animate-pulse"
             }
           >
             Новинки
@@ -117,7 +124,7 @@ const Navbar = () => {
         <Link href={`/${currentGender}/clothes`}>
           <a
             className={
-              "text-lg px-5 font-raleway transition ease-in-out duration-300 hover:text-gray-600"
+              "text-lg sm:px-5 px-3 font-raleway transition ease-in-out duration-300 hover:text-gray-600"
             }
           >
             Одежда
@@ -126,7 +133,7 @@ const Navbar = () => {
         <Link href={`/${currentGender}/shoes`}>
           <a
             className={
-              "text-lg px-5 font-raleway transition ease-in-out duration-300 hover:text-gray-600"
+              "text-lg sm:px-5 px-3 font-raleway transition ease-in-out duration-300 hover:text-gray-600"
             }
           >
             Обувь
@@ -135,7 +142,7 @@ const Navbar = () => {
         <Link href={`/${currentGender}/accessories`}>
           <a
             className={
-              "text-lg px-5 font-raleway transition ease-in-out duration-300 hover:text-gray-600"
+              "text-lg sm:px-5 px-3 font-raleway transition ease-in-out duration-300 hover:text-gray-600"
             }
           >
             Аксессуары

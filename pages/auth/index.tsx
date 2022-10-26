@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { loginForm, registerForm } from "../../types";
 import axios from "axios";
 import Head from "next/head";
@@ -24,15 +24,15 @@ const Auth = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const validateLoginForm = () => {
+  const validateLoginForm = useCallback(() => {
     if (loginForm.email.length > 5 && loginForm.password.length > 5) {
       setLoginFormValid(true);
     } else {
       setLoginFormValid(false);
     }
-  };
+  }, [loginForm]);
 
-  const validateRegisterForm = () => {
+  const validateRegisterForm = useCallback(() => {
     if (
       registerForm.email.length > 5 &&
       registerForm.password.length > 6 &&
@@ -42,7 +42,7 @@ const Auth = () => {
     } else {
       setRegisterFormValid(false);
     }
-  };
+  }, [registerForm]);
 
   const handleLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -66,6 +66,11 @@ const Auth = () => {
       }
     } catch (err) {}
   };
+
+  useEffect(() => {
+    validateLoginForm();
+    validateRegisterForm();
+  }, [loginForm, registerForm, validateLoginForm, validateRegisterForm]);
 
   const handleRegister = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -127,14 +132,20 @@ const Auth = () => {
         </button>
       </div>
       {login ? (
-        <div className={"flex flex-col items-center justify-center mt-10"}>
+        <div
+          className={
+            "flex flex-col items-center justify-center mx-auto bg-black rounded-xl w-4/12 p-10 mt-10"
+          }
+        >
           <form className={"flex flex-col"}>
-            <label htmlFor={"username"}>E-Mail</label>
+            <label className={"text-white font-raleway"} htmlFor={"username"}>
+              E-Mail
+            </label>
             <input
               type={"email"}
               id={"email"}
               className={
-                "border border-gray-400 text-center rounded-lg px-14 py-2"
+                "border border-gray-400 text-center rounded-lg px-14 py-2 focus:outline-none"
               }
               value={loginForm.email}
               onChange={(e) => {
@@ -143,14 +154,17 @@ const Auth = () => {
               }}
               placeholder={"Введите e-mail"}
             />
-            <label className={"mt-5"} htmlFor={"password"}>
+            <label
+              className={"mt-5 font-raleway text-white"}
+              htmlFor={"password"}
+            >
               Пароль
             </label>
             <input
               type={"password"}
               id={"password"}
               className={
-                "border border-gray-400 text-center rounded-lg px-14 py-2"
+                "border border-gray-400 text-center rounded-lg px-14 py-2 focus:outline-none"
               }
               value={loginForm.password}
               onChange={(e) => {
@@ -166,8 +180,8 @@ const Auth = () => {
             )}
             <button
               disabled={!loginFormValid}
-              className={`bg-black text-white text-lg rounded p-2 mt-10 mb-4 transition-colors hover:bg-gray-800 ${
-                loginFormValid ? "" : "opacity-50 cursor-not-allowed"
+              className={`bg-white text-lg rounded p-2 mt-10 mb-4 transition-colors hover:bg-gray-200 ${
+                loginFormValid ? "" : "opacity-90 cursor-not-allowed"
               }`}
               onClick={handleLogin}
               type={"submit"}
@@ -177,14 +191,20 @@ const Auth = () => {
           </form>
         </div>
       ) : (
-        <div className={"flex flex-col items-center justify-center mt-10"}>
+        <div
+          className={
+            "flex flex-col items-center justify-center mx-auto bg-black rounded-xl w-4/12 p-10 mt-10"
+          }
+        >
           <form className={"flex flex-col"}>
-            <label htmlFor={"username"}>Имя</label>
+            <label className={"text-white font-raleway"} htmlFor={"username"}>
+              Имя
+            </label>
             <input
               type={"text"}
               id={"username"}
               className={
-                "border border-gray-400 text-center rounded-lg px-14 py-2"
+                "border border-gray-400 text-center rounded-lg px-14 py-2 focus:outline-none"
               }
               value={registerForm.name}
               onChange={(e) => {
@@ -193,14 +213,17 @@ const Auth = () => {
               }}
               placeholder={"Введите имя"}
             />
-            <label className={"mt-5"} htmlFor={"username"}>
+            <label
+              className={"mt-5 text-white font-raleway"}
+              htmlFor={"username"}
+            >
               E-Mail
             </label>
             <input
               type={"email"}
               id={"email"}
               className={
-                "border border-gray-400 text-center rounded-lg px-14 py-2"
+                "border border-gray-400 text-center rounded-lg px-14 py-2 focus:outline-none"
               }
               value={registerForm.email}
               onChange={(e) => {
@@ -209,14 +232,17 @@ const Auth = () => {
               }}
               placeholder={"Введите e-mail"}
             />
-            <label className={"mt-5"} htmlFor={"password"}>
+            <label
+              className={"mt-5 text-white font-raleway"}
+              htmlFor={"password"}
+            >
               Пароль
             </label>
             <input
               type={"password"}
               id={"password"}
               className={
-                "border border-gray-400 text-center rounded-lg px-14 py-2"
+                "border border-gray-400 text-center rounded-lg px-14 py-2 focus:outline-none"
               }
               value={registerForm.password}
               onChange={(e) => {
@@ -231,8 +257,8 @@ const Auth = () => {
               </p>
             )}
             <button
-              className={`bg-black text-white text-lg rounded p-2 mt-10 mb-4 transition-colors hover:bg-gray-800 ${
-                registerFormValid ? "" : "opacity-50 cursor-not-allowed"
+              className={`bg-white text-lg rounded p-2 mt-10 mb-4 transition-colors hover:bg-gray-200 ${
+                registerFormValid ? "" : "opacity-90 cursor-not-allowed"
               }`}
               disabled={!registerFormValid}
               onClick={handleRegister}

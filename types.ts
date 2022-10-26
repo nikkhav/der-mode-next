@@ -83,3 +83,11 @@ export interface registerForm {
   email: string;
   password: string;
 }
+
+export interface OrderForm {
+  phone: string;
+  streetAndNumber: string;
+  entranceAndFloor: string;
+  flat: string;
+  comment: string;
+}

@@ -38,6 +38,10 @@ export const cartSlice = createSlice({
         state.amount--;
       }
     },
+    clearCart: (state) => {
+      state.items = [];
+      state.amount = 0;
+    },
   },
 });
 
@@ -46,6 +50,7 @@ export const {
   addToCartQuantity,
   reduceFromCartQuantity,
   removeFromCart,
+  clearCart,
 } = cartSlice.actions;
 
 export const selectCart = (state: RootState) => state.cart;
