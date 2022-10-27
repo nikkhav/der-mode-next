@@ -3,19 +3,16 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import axios from "axios";
-import { Item, ItemDetailedProps } from "../../../../types";
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-import { selectGender } from "../../../../store/slices/currentUserSlice";
-import {
-  addToCart,
-  addToCartQuantity,
-} from "../../../../store/slices/cartSlice";
+import { Item, ItemDetailedProps } from "../../../types";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { selectGender } from "../../../store/slices/currentUserSlice";
+import { addToCart, addToCartQuantity } from "../../../store/slices/cartSlice";
 import Head from "next/head";
 
 const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [cartButtonClasses, setCartButtonClasses] = useState<string>(
-    "px-4 py-2 text-xl text-white rounded-md bg-black hover:bg-gray-700 transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+    "sm:px-4 sm:py-2 sm:w-auto sm:h-auto w-52 h-12 mt-5 sm:mt-0 text-xl text-white rounded-md bg-black hover:bg-gray-700 transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
   );
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -38,11 +35,11 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
     if (itemInCart && itemInCart.size === selectedSize) {
       dispatch(addToCartQuantity(item._id));
       setCartButtonClasses(
-        "px-4 py-2 text-xl text-white rounded-md bg-black hover:bg-gray-700 transition duration-300 ease-in-out animate-ping"
+        "sm:px-4 sm:py-2 sm:w-auto sm:h-auto w-52 h-12 mt-5 sm:mt-0 text-xl text-white rounded-md bg-black hover:bg-gray-700 transition duration-300 ease-in-out animate-ping"
       );
       setTimeout(() => {
         setCartButtonClasses(
-          "px-4 py-2 text-xl text-white rounded-md bg-black hover:bg-gray-700 transition duration-300 ease-in-out"
+          "sm:px-4 sm:py-2 sm:w-auto sm:h-auto w-52 h-12 mt-5 sm:mt-0 text-xl text-white rounded-md bg-black hover:bg-gray-700 transition duration-300 ease-in-out"
         );
       }, 1000);
     } else {
@@ -60,11 +57,11 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
         })
       );
       setCartButtonClasses(
-        "px-4 py-2 text-xl text-white rounded-md bg-black hover:bg-gray-700 transition duration-300 ease-in-out animate-ping"
+        "sm:px-4 sm:py-2 sm:w-auto sm:h-auto w-52 h-12 mt-5 sm:mt-0 text-xl text-white rounded-md bg-black hover:bg-gray-700 transition duration-300 ease-in-out animate-ping"
       );
       setTimeout(() => {
         setCartButtonClasses(
-          "px-4 py-2 text-xl text-white rounded-md bg-black hover:bg-gray-700 transition duration-300 ease-in-out"
+          "sm:px-4 sm:py-2 sm:w-auto sm:h-auto w-52 h-12 mt-5 sm:mt-0 text-xl text-white rounded-md bg-black hover:bg-gray-700 transition duration-300 ease-in-out"
         );
       }, 1000);
     }
@@ -75,14 +72,14 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
       <Head>
         <title>{itemName}</title>
       </Head>
-      <div className={"flex flex-row p-10"}>
-        <div className={"w-8/12"}>
-          <div className={"flex flex-row justify-center"}>
+      <div className={"flex sm:flex-row flex-col sm:p-10 mt-5 sm:mt-0 p-3"}>
+        <div className={"sm:w-8/12 w-11/12 mx-auto"}>
+          <div className={"flex flex-row sm:justify-center justify-between"}>
             {item.images.map((image, index) => {
               return (
                 <div
                   key={index}
-                  className={"w-full flex flex-row justify-center"}
+                  className={"w-full flex flex-row sm:justify-center mx-2"}
                 >
                   <Image
                     src={image}
@@ -96,7 +93,11 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
             })}
           </div>
         </div>
-        <div className={"flex flex-col items-center justify-evenly w-4/12"}>
+        <div
+          className={
+            "flex flex-col items-center justify-evenly mt-5 sm:mt-0 mx-auto w-4/12"
+          }
+        >
           <div className={"flex flex-col items-center"}>
             {item.new ? (
               <h2
@@ -119,7 +120,7 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
             <h3 className={"text-xl text-center font-raleway mt-5"}>
               Размеры:
             </h3>
-            <div className={"flex flex-row flex-wrap justify-center mt-5"}>
+            <div className={"flex flex-row justify-center mt-5"}>
               {item.sizes.map((size, index) => (
                 <button
                   key={index}

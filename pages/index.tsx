@@ -13,7 +13,11 @@ const Home: NextPage = () => {
             Выберите раздел для вас
           </h1>
         </div>
-        <div className={"flex sm:flex-row flex-col justify-center mt-14"}>
+        <div
+          className={
+            "flex sm:flex-row sm:w-auto w-full flex-col justify-center sm:mt-14 mt-8"
+          }
+        >
           <PhotoCard
             image={"/images/women.jpg"}
             title={"Женское"}
@@ -39,10 +43,13 @@ const Home: NextPage = () => {
           <div
             className={"flex flex-row justify-center border-b-2 mt-10 pb-10"}
           >
-            <SiNike className={"text-center mx-10"} size={100} />
-            <SiNewbalance className={"text-center mx-10"} size={100} />
-            <SiThenorthface className={"text-center mx-10"} size={100} />
-            <SiJordan className={"text-center mx-10"} size={100} />
+            <SiNike className={"text-center sm:mx-10 mx-4"} size={100} />
+            <SiNewbalance className={"text-center sm:mx-10 mx-4"} size={100} />
+            <SiThenorthface
+              className={"text-center sm:mx-10 mx-4"}
+              size={100}
+            />
+            <SiJordan className={"text-center sm:mx-10 mx-4"} size={100} />
           </div>
         </div>
         <div

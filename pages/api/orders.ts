@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import Order from "../../mongodb/models/orderModel";
 import connectDB from "../../mongodb/database";
+import User from "../../mongodb/models/userModel";
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,10 +10,19 @@ export default async function handler(
   await connectDB();
   if (req.method === "POST") {
     try {
-      const newOrder = await Order.create(req.body);
+      const user = await User.findById(req.query.userId);
+      const newOrder = req.body;
+      if (!user) {
+        return res
+          .status(205)
+          .json({ status: "error", message: "User not found" });
+      }
+      const order = await Order.create(newOrder);
+      user.orders.push(order._id);
+      await user.save();
       res.status(201).json({
         status: "success",
-        newOrder,
+        order,
         message: "Order created successfully",
       });
     } catch (error) {
@@ -25,7 +35,8 @@ export default async function handler(
   }
   if (req.method === "GET") {
     try {
-      const orders = await Order.find();
+      const { userId } = req.query;
+      const orders = await Order.find({ userId: userId });
       if (!orders || orders.length === 0) {
         return res
           .status(400)

@@ -12,7 +12,7 @@ const PhotoCard: NextPage<PhotoCardProps> = ({ image, title, path }) => {
   return (
     <div
       className={
-        "w-3/12 h-full shadow-lg rounded-md shadow-gray-500 mx-7 hover:cursor-pointer hover:shadow-gray-600 transition-shadow duration-300"
+        "sm:w-3/12 h-full shadow-lg rounded-md shadow-gray-500 mx-7 sm:mt-0 mt-8 hover:cursor-pointer hover:shadow-gray-600 transition-shadow duration-300"
       }
       onClick={() => {
         dispatch(selectGender(path));

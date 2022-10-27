@@ -91,3 +91,29 @@ export interface OrderForm {
   flat: string;
   comment: string;
 }
+
+export interface User {
+  _id: string;
+  name: string;
+  email: string;
+  password: string;
+  orders: string[];
+}
+
+export interface ProfileProps {
+  user: User;
+  orders: profileOrder[];
+}
+
+export interface profileOrder {
+  userId: string;
+  items: ICartItem[];
+  totalSum: number;
+  date: string;
+  phone: string;
+  streetAndNumber: string;
+  entranceAndFloor: string;
+  flat: string;
+  comment: string;
+  _id: string;
+}

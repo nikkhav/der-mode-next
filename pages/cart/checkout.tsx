@@ -27,7 +27,6 @@ const Checkout = () => {
     flat: "",
     comment: "",
   });
-  // TODO: Дизейблить кнопку когда форма не валидна
   const [orderFormValid, setOrderFormValid] = useState<boolean>(false);
 
   const today = new Date();
@@ -41,7 +40,7 @@ const Checkout = () => {
     if (
       orderForm.phone.length > 5 &&
       orderForm.streetAndNumber.length > 5 &&
-      orderForm.entranceAndFloor.length > 5 &&
+      orderForm.entranceAndFloor.length > 2 &&
       orderForm.flat.length > 0
     ) {
       setOrderFormValid(true);
@@ -64,7 +63,10 @@ const Checkout = () => {
       comment: orderForm.comment,
     };
     try {
-      const response = await axios.post("/api/orders", order);
+      const response = await axios.post(
+        `/api/orders?userId=${currentUser.id}`,
+        order
+      );
       if (response.status === 201) {
         dispatch(clearCart());
         router.push("/cart/success");
@@ -188,10 +190,11 @@ const Checkout = () => {
               placeholder={"Введите комментарий"}
             />
             <button
+              disabled={!orderFormValid}
               onClick={sendOrderForm}
-              className={
-                "bg-black text-white text-lg rounded-lg px-14 py-3 mt-5 font-raleway transition-colors hover:bg-gray-800 hover:shadow-lg"
-              }
+              className={`bg-black text-white text-lg rounded-lg px-14 py-3 mt-5 font-raleway transition-colors hover:bg-gray-800 hover:shadow-lg ${
+                orderFormValid ? "" : "opacity-50 cursor-not-allowed"
+              }`}
             >
               Оформить заказ
             </button>

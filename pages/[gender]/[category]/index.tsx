@@ -21,7 +21,7 @@ const ProductsMain: NextPage<ProductsPageProps> = ({ items }) => {
   }, [selectedGender, gender, dispatch]);
 
   return (
-    <div className={"flex flex-col p-4"}>
+    <div className={"flex flex-col sm:p-4"}>
       {items.length === 0 ? (
         <div className={"flex flex-col p-10 items-center justify-center"}>
           <h1 className={"text-4xl font-light"}>Нет товаров 😢</h1>
@@ -35,7 +35,7 @@ const ProductsMain: NextPage<ProductsPageProps> = ({ items }) => {
           </Link>
         </div>
       ) : (
-        <div className={"flex flex-row flex-wrap justify-evenly p-4"}>
+        <div className={"flex flex-row flex-wrap justify-evenly sm:p-4"}>
           {items.map((item: Item) => {
             return (
               <ItemCard

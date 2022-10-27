@@ -15,7 +15,7 @@ const ItemCard: NextPage<ItemCardProps> = ({
   return (
     <div
       className={
-        "flex flex-col justify-center w-1/5 h-full mx-5 my-8 pt-2 rounded-md"
+        "flex flex-col justify-center sm:w-1/5 w-1/3 h-full mx-5 my-8 pt-2 rounded-md"
       }
     >
       <div className={"w-full h-full"}>

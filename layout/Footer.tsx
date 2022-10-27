@@ -6,12 +6,12 @@ const Footer = () => {
   return (
     <div className={"flex flex-col bg-black mt-10 p-10"}>
       <div className={"flex flex-row justify-center"}>
-        <h3 className={"text-white text-2xl font-raleway"}>
+        <h3 className={"text-white text-center text-2xl font-raleway"}>
           Скидка 10% за отзыв в Яндекс Картах
         </h3>
       </div>
       <div className={"flex flex-row justify-center"}>
-        <h3 className={"text-white text-xl font-raleway"}>
+        <h3 className={"text-white text-center mt-3 text-xl font-raleway"}>
           Покажите отзыв в магазине для получения скидки
         </h3>
       </div>
@@ -30,7 +30,7 @@ const Footer = () => {
         <h3 className={"text-white text-xl font-raleway"}>Приятных покупок!</h3>
       </div>
       <div className={"flex flex-row justify-center mt-8"}>
-        <h3 className={"text-white text-xl font-raleway"}>
+        <h3 className={"text-white text-xl text-center font-raleway"}>
           © 2022 Der Mode. Все права защищены.
         </h3>
       </div>
