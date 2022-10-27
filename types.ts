@@ -117,3 +117,7 @@ export interface profileOrder {
   comment: string;
   _id: string;
 }
+
+export interface OrderDetailedProps {
+  order: profileOrder;
+}

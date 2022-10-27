@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import Order from "../../mongodb/models/orderModel";
-import connectDB from "../../mongodb/database";
-import User from "../../mongodb/models/userModel";
+import Order from "../../../mongodb/models/orderModel";
+import connectDB from "../../../mongodb/database";
+import User from "../../../mongodb/models/userModel";
 
 export default async function handler(
   req: NextApiRequest,

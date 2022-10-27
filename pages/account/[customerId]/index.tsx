@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { NextPage } from "next";
-import { ProfileProps } from "../../types";
-import { useAppSelector } from "../../store/hooks";
+import { ProfileProps } from "../../../types";
+import { useAppSelector } from "../../../store/hooks";
 import Image from "next/image";
 
 const CustomerProfile: NextPage<ProfileProps> = ({ user, orders }) => {
@@ -15,7 +15,7 @@ const CustomerProfile: NextPage<ProfileProps> = ({ user, orders }) => {
     }
   }, [currentUser, router]);
   return (
-    <div className={"p-5"}>
+    <div className={"p-5 mt-5"}>
       <h1 className={"text-3xl text-center font-raleway"}>
         Здравствуйте, {user.name}
       </h1>
@@ -26,12 +26,17 @@ const CustomerProfile: NextPage<ProfileProps> = ({ user, orders }) => {
             У вас пока нет заказов
           </h1>
         ) : (
-          <div className={"flex flex-col w-9/12 bg-gray-100 rounded-xl mt-5"}>
+          <div className={"flex flex-col-reverse w-7/12 mt-5"}>
             {orders.map((order) => {
               return (
                 <div
                   key={order._id}
-                  className={"flex flex-row  justify-around mt-5"}
+                  className={
+                    "flex flex-row justify-between border-y-2 border-y-gray-200 p-2 mt-5 mb-3 transition-shadow hover:shadow-md hover:cursor-pointer"
+                  }
+                  onClick={() =>
+                    router.push(`/account/${user._id}/${order._id}`)
+                  }
                 >
                   <div className={"flex flex-col  justify-center"}>
                     <Image
