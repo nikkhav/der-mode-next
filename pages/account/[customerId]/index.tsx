@@ -26,7 +26,7 @@ const CustomerProfile: NextPage<ProfileProps> = ({ user, orders }) => {
             У вас пока нет заказов
           </h1>
         ) : (
-          <div className={"flex flex-col-reverse w-7/12 mt-5"}>
+          <div className={"flex flex-col-reverse sm:w-7/12 mt-5"}>
             {orders.map((order) => {
               return (
                 <div
@@ -38,21 +38,25 @@ const CustomerProfile: NextPage<ProfileProps> = ({ user, orders }) => {
                     router.push(`/account/${user._id}/${order._id}`)
                   }
                 >
-                  <div className={"flex flex-col  justify-center"}>
+                  <div
+                    className={"flex flex-col justify-center w-5/12 sm:w-auto"}
+                  >
                     <Image
                       src={order.items[0].image}
                       width={200}
                       height={200}
                       alt={order.items[0].title}
-                      className={"rounded-xl"}
+                      className={"rounded-lg"}
                     />
                   </div>
                   <div className={"flex flex-col justify-center"}>
-                    <h1 className={"text-3xl font-raleway"}>{order.date}</h1>
-                    <h2 className={"text-3xl font-raleway"}>
+                    <h1 className={"sm:text-3xl text-2xl font-raleway"}>
+                      {order.date}
+                    </h1>
+                    <h2 className={"sm:text-3xl text-2xl font-raleway"}>
                       {order.items.length} товаров
                     </h2>
-                    <h2 className={"text-3xl font-raleway"}>
+                    <h2 className={"sm:text-3xl text-2xl font-raleway"}>
                       {order.totalSum} рублей
                     </h2>
                   </div>

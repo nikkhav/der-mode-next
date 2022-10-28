@@ -21,7 +21,9 @@ const Success = () => {
       <Head>
         <title>Спасибо за покупку!</title>
       </Head>
-      <div className={"flex flex-col justify-center items-center mt-20 mb-16"}>
+      <div
+        className={"flex flex-col justify-center items-center p-4 mt-20 mb-16"}
+      >
         <AiOutlineCheckCircle className={"text-6xl text-green-500 mx-auto"} />
         <p className={"text-4xl font-light text-center p-3"}>
           Спасибо за покупку!

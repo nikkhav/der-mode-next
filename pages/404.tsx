@@ -5,10 +5,10 @@ import Link from "next/link";
 const FourOhFour = () => {
   return (
     <div className={"flex flex-col justify-center items-center mx-auto mt-32"}>
-      <h1 className={"text-5xl font-light"}>Страница не найдена</h1>
+      <h1 className={"text-5xl text-center font-light"}>Страница не найдена</h1>
       <VscError className={"mt-5 text-red-700"} size={60} />
-      <h3 className={"text-2xl font-light mt-5"}>Ошибка 404</h3>
-      <h3 className={"text-3xl font-light mt-5"}>
+      <h3 className={"text-2xl text-center font-light mt-5"}>Ошибка 404</h3>
+      <h3 className={"text-3xl text-center font-light mt-5"}>
         Попробуйте вернуться назад или перейдите на главную страницу
       </h3>
       <Link href={"/"}>

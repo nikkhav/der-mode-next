@@ -105,7 +105,7 @@ const Auth = () => {
       </Head>
       <div
         className={
-          "flex flex-row mx-auto justify-around items-center w-4/12 mt-10 p-3"
+          "flex flex-row mx-auto justify-around items-center sm:w-4/12 w-10/12 mt-10 p-3"
         }
       >
         <button
@@ -134,7 +134,7 @@ const Auth = () => {
       {login ? (
         <div
           className={
-            "flex flex-col items-center justify-center mx-auto bg-black rounded-xl w-4/12 p-10 mt-10"
+            "flex flex-col items-center justify-center mx-auto bg-black rounded-xl sm:w-4/12 w-11/12 p-10 mt-10"
           }
         >
           <form className={"flex flex-col"}>
@@ -193,7 +193,7 @@ const Auth = () => {
       ) : (
         <div
           className={
-            "flex flex-col items-center justify-center mx-auto bg-black rounded-xl w-4/12 p-10 mt-10"
+            "flex flex-col items-center justify-center mx-auto bg-black rounded-xl sm:w-4/12 w-11/12 p-10 mt-10"
           }
         >
           <form className={"flex flex-col"}>

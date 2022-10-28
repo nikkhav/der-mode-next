@@ -23,10 +23,10 @@ const OrderDetailed: NextPage<OrderDetailedProps> = ({ order }) => {
           <div
             key={item.id}
             className={
-              "flex flex-row w-6/12 border-2 mx-auto justify-between rounded-xl mt-5 p-3"
+              "flex flex-row sm:w-6/12 border-2 mx-auto justify-between rounded-xl mt-5 p-3"
             }
           >
-            <div className={"flex flex-col justify-center"}>
+            <div className={"flex flex-col justify-center w-5/12 sm:w-auto"}>
               <Image
                 src={item.image}
                 alt={item.title}
@@ -40,7 +40,7 @@ const OrderDetailed: NextPage<OrderDetailedProps> = ({ order }) => {
               <h1 className={"text-3xl text-center font-light"}>
                 {item.title} x{item.quantity}
               </h1>
-              <h2 className={"text-3xl text-center font-light"}>
+              <h2 className={"text-3xl mt-4 text-center font-light"}>
                 {item.price} рублей
               </h2>
             </div>

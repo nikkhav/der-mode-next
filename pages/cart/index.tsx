@@ -91,128 +91,126 @@ const Cart = () => {
   };
 
   const modal = (
-    <div
-      className={
-        "fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex flex-col items-center justify-center animate-opacity"
-      }
-    >
-      <div className={"bg-white flex flex-col rounded-xl items-center p-14"}>
-        <h1 className={"text-4xl text-center font-raleway mt-5"}>
-          Вы почти у цели!
-        </h1>
-        <h2 className={"text-2xl text-center font-raleway mt-5"}>
-          Для оформления заказа войдите или зарегистрируйтесь
-        </h2>
-        <div className={"flex flex-row justify-between w-8/12 mt-10"}>
-          <h3
-            onClick={() => {
-              setModalLoginSelected(true);
-              setModalForm({
-                email: "",
-                password: "",
-                name: "",
-              });
-              validateModalForm();
-              setError("");
-            }}
-            className={`font-raleway text-2xl hover:cursor-pointer ${
-              modalLoginSelected ? "border-b-2 border-b-black" : ""
-            }`}
-          >
-            Войти
-          </h3>
-          <h3
-            onClick={() => {
-              setModalLoginSelected(false);
-              setModalForm({
-                email: "",
-                password: "",
-                name: "",
-              });
-              validateModalForm();
-              setError("");
-            }}
-            className={`font-raleway text-2xl hover:cursor-pointer ${
-              modalLoginSelected ? "" : "border-b-2 border-b-black"
-            }`}
-          >
-            Зарегистрироваться
-          </h3>
-        </div>
-        <div className={"flex flex-col w-8/12 mt-10"}>
-          {modalLoginSelected ? (
-            ""
+    <div className={"flex justify-center items-center mx-auto"}>
+      <div
+        className={
+          "fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex flex-col items-center justify-center animate-opacity"
+        }
+      >
+        <div className={"bg-white flex flex-col rounded-xl items-center p-14"}>
+          <h1 className={"text-4xl text-center font-raleway mt-5"}>
+            Вы почти у цели!
+          </h1>
+          <h2 className={"text-2xl text-center font-raleway mt-5"}>
+            Для оформления заказа войдите или зарегистрируйтесь
+          </h2>
+          <div className={"flex flex-row justify-between sm:w-8/12 mt-10"}>
+            <h3
+              onClick={() => {
+                setModalLoginSelected(true);
+                setModalForm({
+                  email: "",
+                  password: "",
+                  name: "",
+                });
+                validateModalForm();
+                setError("");
+              }}
+              className={`font-raleway text-2xl hover:cursor-pointer mx-5 sm:mx-0 ${
+                modalLoginSelected ? "border-b-2 border-b-black" : ""
+              }`}
+            >
+              Войти
+            </h3>
+            <h3
+              onClick={() => {
+                setModalLoginSelected(false);
+                setModalForm({
+                  email: "",
+                  password: "",
+                  name: "",
+                });
+                validateModalForm();
+                setError("");
+              }}
+              className={`font-raleway text-2xl hover:cursor-pointer ${
+                modalLoginSelected ? "" : "border-b-2 border-b-black"
+              }`}
+            >
+              Зарегистрироваться
+            </h3>
+          </div>
+          <div className={"flex flex-col w-8/12 mt-10"}>
+            {modalLoginSelected ? (
+              ""
+            ) : (
+              <>
+                <label className={"font-raleway text-2xl"} htmlFor={"username"}>
+                  Имя
+                </label>
+                <input
+                  onChange={(e) => {
+                    //validateModalForm();
+                    setModalForm({ ...modalForm, name: e.target.value });
+                  }}
+                  type={"text"}
+                  id={"username"}
+                  value={modalForm.name}
+                  className={
+                    "border-2 border-black rounded-md w-full h-10 mt-2 p-2 focus:outline-none"
+                  }
+                />
+              </>
+            )}
+            <label className={"font-raleway text-2xl mt-5"}>Email</label>
+            <input
+              onChange={(e) => {
+                //validateModalForm();
+                setModalForm({ ...modalForm, email: e.target.value });
+              }}
+              value={modalForm.email}
+              className={
+                "border-2 border-black rounded-md w-full h-10 mt-2 p-2 focus:outline-none"
+              }
+              type={"email"}
+            />
+            <label className={"font-raleway text-2xl mt-5"}>Пароль</label>
+            <input
+              onChange={(e) => {
+                //validateModalForm();
+                setModalForm({ ...modalForm, password: e.target.value });
+              }}
+              value={modalForm.password}
+              className={
+                "border-2 border-black rounded-md w-full h-10 mt-2 p-2 focus:outline-none"
+              }
+              type={"password"}
+            />
+          </div>
+          {error ? (
+            <p className={"text-red-500 font-raleway text-2xl mt-5"}>{error}</p>
           ) : (
-            <>
-              <label className={"font-raleway text-2xl"} htmlFor={"username"}>
-                Имя
-              </label>
-              <input
-                onChange={(e) => {
-                  //validateModalForm();
-                  setModalForm({ ...modalForm, name: e.target.value });
-                }}
-                type={"text"}
-                id={"username"}
-                value={modalForm.name}
-                className={
-                  "border-2 border-black rounded-md w-full h-10 mt-2 p-2 focus:outline-none"
-                }
-              />
-            </>
+            ""
           )}
-          <label className={"font-raleway text-2xl mt-5"}>Email</label>
-          <input
-            onChange={(e) => {
-              //validateModalForm();
-              setModalForm({ ...modalForm, email: e.target.value });
-            }}
-            value={modalForm.email}
-            className={
-              "border-2 border-black rounded-md w-full h-10 mt-2 p-2 focus:outline-none"
-            }
-            type={"email"}
-          />
-          <label className={"font-raleway text-2xl mt-5"}>Пароль</label>
-          <input
-            onChange={(e) => {
-              //validateModalForm();
-              setModalForm({ ...modalForm, password: e.target.value });
-            }}
-            value={modalForm.password}
-            className={
-              "border-2 border-black rounded-md w-full h-10 mt-2 p-2 focus:outline-none"
-            }
-            type={"password"}
-          />
-        </div>
-        {error ? (
-          <p className={"text-red-500 font-raleway text-2xl mt-5"}>{error}</p>
-        ) : (
-          ""
-        )}
-        <div className={"flex flex-row w-8/12 mt-10"}>
-          <button
-            onClick={() => setShowModal(false)}
-            className={"font-raleway text-2xl w-1/2 h-10 rounded-md"}
-          >
-            Отмена
-          </button>
-          <button
-            onClick={
-              handleModalLogin
-              //   setShowModal(false);
-              // router.push("/cart/checkout")}
-            }
-            disabled={!modalFormValid}
-            className={`bg-black text-white font-raleway text-2xl w-1/2 h-10 rounded-md ml-5 ${
-              modalFormValid
-                ? "hover:bg-gray-800"
-                : "opacity-50 cursor-not-allowed"
-            }`}
-          >
-            Продолжить
-          </button>
+          <div className={"flex flex-row w-8/12 mt-10"}>
+            <button
+              onClick={() => setShowModal(false)}
+              className={"font-raleway text-2xl w-1/2  h-10 rounded-md"}
+            >
+              Отмена
+            </button>
+            <button
+              onClick={handleModalLogin}
+              disabled={!modalFormValid}
+              className={`bg-black text-white font-raleway text-2xl sm:w-1/2 px-3 sm:px-0 h-10 rounded-md ml-5 ${
+                modalFormValid
+                  ? "hover:bg-gray-800"
+                  : "opacity-50 cursor-not-allowed"
+              }`}
+            >
+              Продолжить
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -226,7 +224,7 @@ const Cart = () => {
       <Head>
         <title>Корзина</title>
       </Head>
-      <div className={"p-8 mt-4"}>
+      <div className={"sm:p-8 mt-8 sm:mt-4"}>
         {showModal && modal}
         {cartItems.length > 0 ? (
           <>
@@ -240,7 +238,7 @@ const Cart = () => {
             {cartItems.map((item) => {
               return (
                 <CartItem
-                  key={item.id}
+                  key={item.id + item.size}
                   id={item.id}
                   image={item.image}
                   title={item.title}
@@ -258,7 +256,7 @@ const Cart = () => {
               </div>
               <div
                 className={
-                  "flex flex-row mx-auto w-9/12 justify-between items-center"
+                  "flex flex-row mx-auto sm:w-9/12 px-5 sm:px-0 justify-between items-center"
                 }
               >
                 <div className={"flex flex-col my-10"}>

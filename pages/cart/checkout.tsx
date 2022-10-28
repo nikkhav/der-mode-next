@@ -91,7 +91,7 @@ const Checkout = () => {
           <h1 className={"text-4xl font-raleway"}>Оформление заказа</h1>
         </div>
         <div className={"flex flex-row justify-center items-center mt-10"}>
-          <div className={"flex flex-col w-4/12"}>
+          <div className={"flex flex-col sm:w-4/12"}>
             <label
               className={"text-xl text-center mb-2 font-raleway"}
               htmlFor={"name"}
