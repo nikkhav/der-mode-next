@@ -40,7 +40,9 @@ const OrderDetailed: NextPage<OrderDetailedProps> = ({ order }) => {
               <h1 className={"text-3xl text-center font-light"}>
                 {item.title} x{item.quantity}
               </h1>
-              <h2 className={"text-3xl text-center font-light"}>{item.size}</h2>
+              <h2 className={"text-3xl text-center font-light"}>
+                Размер: {item.size.toUpperCase()}
+              </h2>
               <h2 className={"text-3xl mt-4 text-center font-light"}>
                 {item.price} рублей
               </h2>
