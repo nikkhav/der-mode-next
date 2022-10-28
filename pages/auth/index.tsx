@@ -57,7 +57,7 @@ const Auth = () => {
         dispatch(logIn(id));
         setError("");
         setLoginForm({ email: "", password: "" });
-        router.push(`/account/${id}`);
+        router.push(`${process.env.HOST}/account/${id}`);
       }
 
       if (res.status === 201 || res.status === 202) {
