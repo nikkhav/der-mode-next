@@ -4,6 +4,11 @@ export default function Document() {
   return (
     <Html lang={"ru"}>
       <Head>
+        <linl
+          rel={"stylesheet"}
+          type={"text/css"}
+          href={"/styles/globals.css"}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
