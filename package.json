@@ -2,6 +2,7 @@
   "name": "der-mode-next",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -19,7 +20,6 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.4",
-    "sass": "^1.55.0",
     "sharp": "^0.31.1"
   },
   "devDependencies": {
