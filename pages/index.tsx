@@ -8,7 +8,9 @@ const Home: NextPage = () => {
       <div className={"flex flex-col"}>
         <div className={"flex flex-row justify-center mt-12"}>
           <h1
-            className={"text-4xl text-center font-raleway animate-slide-left"}
+            className={
+              "text-4xl text-center font-raleway sm:animate-slide-left"
+            }
           >
             Выберите раздел для вас
           </h1>
