@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { Item, ProductsPageProps } from "../../../types";
-import axios from "axios";
+import { IItem, ProductsPageProps } from "../../../types";
+import connectDB from "../../../mongodb/database";
+import Item from "../../../mongodb/models/itemModel";
 import ItemCard from "../../../components/ItemCard";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { selectGender } from "../../../store/slices/currentUserSlice";
@@ -36,7 +37,7 @@ const ProductsMain: NextPage<ProductsPageProps> = ({ items }) => {
         </div>
       ) : (
         <div className={"flex flex-row flex-wrap justify-evenly sm:p-4"}>
-          {items.map((item: Item) => {
+          {items.map((item: IItem) => {
             return (
               <ItemCard
                 title={item.title}
@@ -156,26 +157,33 @@ export const getStaticPaths: GetStaticPaths = () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const gender = context.params?.gender;
   const category = context.params?.category;
-  let res;
+  await connectDB();
+  let itemsDB;
 
   switch (category) {
     case "all": {
-      res = await axios.get(`${process.env.HOST}/api/items/${gender}`);
+      itemsDB = await Item.find({
+        gender: gender,
+      });
       break;
     }
     case "new": {
-      res = await axios.get(`${process.env.HOST}/api/items/${gender}/newItems`);
+      itemsDB = await Item.find({
+        gender: gender,
+        new: true,
+      });
       break;
     }
     default: {
-      res = await axios.get(
-        `${process.env.HOST}/api/items/${gender}/${category}`
-      );
+      itemsDB = await Item.find({
+        gender: gender,
+        category: category,
+      });
       break;
     }
   }
 
-  const items = res.data.items;
+  const items = JSON.parse(JSON.stringify(itemsDB));
 
   return {
     props: {

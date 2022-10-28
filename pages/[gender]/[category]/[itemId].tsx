@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import axios from "axios";
-import { Item, ItemDetailedProps } from "../../../types";
+import Item from "../../../mongodb/models/itemModel";
+import connectDB from "../../../mongodb/database";
+import { IItem, ItemDetailedProps } from "../../../types";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { selectGender } from "../../../store/slices/currentUserSlice";
 import { addToCart, addToCartQuantity } from "../../../store/slices/cartSlice";
@@ -29,7 +30,7 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
     if (item.sizes.length === 1) setSelectedSize(item.sizes[0]);
   }, [selectedGender, dispatch, router.query, item.sizes]);
 
-  const handleAddToCart = (item: Item) => (event: any) => {
+  const handleAddToCart = (item: IItem) => (event: any) => {
     event.preventDefault();
     const itemInCart = cartItems.find((cartItem) => cartItem.id === item._id);
     if (itemInCart && itemInCart.size === selectedSize) {
@@ -66,7 +67,6 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
       }, 1000);
     }
   };
-
   return (
     <>
       <Head>
@@ -148,14 +148,15 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch(`${process.env.HOST}/api/items`);
-  const data = await res.json();
+  await connectDB();
+  const itemsTest = await Item.find();
+  const dataJson = JSON.parse(JSON.stringify(itemsTest));
 
   const categories = ["all", "new", "clothes", "shoes", "accessories"];
   const paths: any = [];
 
   for (let i = 0; i < categories.length; i++) {
-    data.items.map((item: Item) => {
+    dataJson.map((item: IItem) => {
       paths.push({
         params: {
           itemId: item._id.toString(),
@@ -173,9 +174,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  await connectDB();
   const itemId = context.params?.itemId;
-  const res = await axios.get(`${process.env.HOST}/api/item/${itemId}`);
-  const item = res.data.item;
+  const itemDB = await Item.findById(itemId);
+  const item = JSON.parse(JSON.stringify(itemDB));
 
   return {
     props: {

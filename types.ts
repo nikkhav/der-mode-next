@@ -6,11 +6,11 @@ export interface PhotoCardProps {
 
 export interface ProductsPageProps {
   gender: string;
-  items: Item[];
+  items: IItem[];
 }
 
 export interface ProductsIndexPageProps {
-  items: Item[];
+  items: IItem[];
 }
 
 export interface ItemCardProps {
@@ -33,7 +33,7 @@ export interface CartItemProps {
 }
 
 export interface ItemDetailedProps {
-  item: Item;
+  item: IItem;
 }
 
 export interface CurrentUserInitialState {
@@ -59,7 +59,7 @@ export interface ICartItem {
   category: string;
 }
 
-export interface Item {
+export interface IItem {
   _id: string;
   brand: string;
   category: string;
