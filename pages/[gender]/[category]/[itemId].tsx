@@ -21,14 +21,14 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
     (state) => state.currentUser.selectedGender
   );
   const cartItems = useAppSelector((state) => state.cart.items);
-  const itemName: string = `${item.title} | ${item.brand}`;
+  const itemName: string = `${item?.title} | ${item?.brand}`;
 
   useEffect(() => {
     if (router.query.gender !== selectedGender) {
       dispatch(selectGender(router.query.gender as string));
     }
     if (item.sizes.length === 1) setSelectedSize(item.sizes[0]);
-  }, [selectedGender, dispatch, router.query, item.sizes]);
+  }, [selectedGender, dispatch, router.query, item?.sizes]);
 
   const handleAddToCart = (item: IItem) => (event: any) => {
     event.preventDefault();
@@ -75,7 +75,7 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
       <div className={"flex sm:flex-row flex-col sm:p-10 mt-5 sm:mt-0 p-3"}>
         <div className={"sm:w-8/12 w-11/12 mx-auto"}>
           <div className={"flex flex-row sm:justify-center justify-between"}>
-            {item.images.map((image, index) => {
+            {item?.images.map((image, index) => {
               return (
                 <div
                   key={index}
@@ -99,7 +99,7 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
           }
         >
           <div className={"flex flex-col items-center"}>
-            {item.new ? (
+            {item?.new ? (
               <h2
                 className={"text-xl text-center text-red-600 font-light mb-4"}
               >
@@ -109,19 +109,19 @@ const ItemDetailed: NextPage<ItemDetailedProps> = ({ item }) => {
               ""
             )}
             <h2 className={"text-3xl text-center font-intertight"}>
-              {item.title}
+              {item?.title}
             </h2>
             <h3 className={"text-2xl text-center mt-3 font-raleway"}>
-              {item.brand}
+              {item?.brand}
             </h3>
             <h3 className={"text-xl text-center font-raleway mt-5"}>
-              Цена: {item.price} ₽
+              Цена: {item?.price} ₽
             </h3>
             <h3 className={"text-xl text-center font-raleway mt-5"}>
               Размеры:
             </h3>
             <div className={"flex flex-row justify-center mt-5"}>
-              {item.sizes.map((size, index) => (
+              {item?.sizes.map((size, index) => (
                 <button
                   key={index}
                   className={`px-4 py-2 rounded-md mx-2 ${
