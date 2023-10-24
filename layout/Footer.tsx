@@ -31,7 +31,7 @@ const Footer = () => {
       </div>
       <div className={"flex flex-row justify-center mt-8"}>
         <h3 className={"text-white text-xl text-center font-raleway"}>
-          © 2022 Der Mode. Все права защищены.
+          © 2023 Веб Лаборатория GeekBro. Все права защищены.
         </h3>
       </div>
     </div>
